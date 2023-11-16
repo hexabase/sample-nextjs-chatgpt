@@ -1,0 +1,80 @@
+.ant-menu-dark {
+  background: #32303b;
+
+  .ant-menu-item-selected {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.ant-menu-dark:not(.ant-menu-horizontal)
+  .ant-menu-item:not(.ant-menu-item-selected):hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ant-menu-item.ant-menu-item-only-child {
+  border-radius: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.ant-menu-item.ant-menu-item-only-child.ant-menu-item-selected
+  > span
+  > a::after,
+.ant-menu-item.ant-menu-item-only-child.ant-menu-item-active > span > a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.ant-menu-item.ant-menu-item-only-child.ant-menu-item-selected
+  > span
+  > a::after,
+.ant-menu-item.ant-menu-item-only-child.ant-menu-item-active > span > a::after {
+  width: 5px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.ant-menu-item.ant-menu-item-only-child.ant-menu-item-active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.ant-pagination.ant-table-pagination > .ant-pagination-prev,
+.ant-pagination.ant-table-pagination > .ant-pagination-next {
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+.ant-pagination.ant-table-pagination > .ant-pagination-item {
+  border-radius: 0px;
+}
+
+.ant-pagination.ant-table-pagination > .ant-pagination-item,
+.ant-pagination.ant-table-pagination
+  > .ant-pagination-prev.ant-pagination-disabled,
+.ant-pagination.ant-table-pagination
+  > .ant-pagination-next.ant-pagination-disabled {
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.ant-pagination.ant-table-pagination
+  > .ant-pagination-item.ant-pagination-item-active {
+  border-color: #1677ff;
+}
+
+.ant-pagination.ant-table-pagination > .ant-pagination-prev > button,
+.ant-pagination.ant-table-pagination > .ant-pagination-next > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

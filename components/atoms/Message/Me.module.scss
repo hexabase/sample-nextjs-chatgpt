@@ -1,0 +1,36 @@
+.container {
+  min-height: 44px;
+  margin-left: auto;
+  background: var(--accent);
+  padding: 14px 15px 12px;
+  width: fit-content;
+  max-width: 80%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  background-color: #e6e6e6;
+  border-radius: 12px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 98%;
+    width: 0;
+    height: 0;
+    border-left: 23px solid transparent;
+    border-right: 0px solid transparent;
+    border-top: 16px solid var(--accent);
+    clear: both;
+  }
+}
+
+.content {
+  min-width: 50px;
+  color: var(--white);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  font-style: normal;
+}

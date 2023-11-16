@@ -1,0 +1,15 @@
+.private_layout {
+  background: #fff;
+  height: 100vh;
+}
+
+.private_layout_content {
+  height: calc(100vh);
+  background: #fff;
+  padding: 40px 40px 0px 40px;
+}
+
+// .scroll_private_layout_content {
+//   height: calc(100vh - 108px);
+//   overflow-y: scroll;
+// }

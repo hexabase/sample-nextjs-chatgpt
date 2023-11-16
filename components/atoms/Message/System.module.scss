@@ -1,0 +1,32 @@
+.container {
+  min-height: 44px;
+  background: var(--white);
+  padding: 14px 15px 12px;
+  width: fit-content;
+  max-width: 80%;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 98%;
+    width: 0;
+    height: 0;
+    border-left: 0px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 16px solid var(--white);
+    clear: both;
+  }
+}
+
+.content {
+  min-width: 50px;
+  color: var(--base);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  font-style: normal;
+}
