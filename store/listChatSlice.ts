@@ -34,7 +34,6 @@ export const ListChatSlice = createSlice({
   initialState,
   reducers: {
     addNewChat: (state, payload) => {
-      console.log(payload.payload);
       state.values.push(payload.payload);
     },
     updateConversation: (state, payload) => {

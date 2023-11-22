@@ -44,7 +44,6 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed, menu }) => {
   useEffect(() => {
     const url = router.query.id;
     const activeMenu = menu.find((item: any) => url && url == item.id);
-    console.log(url, menu);
     if (activeMenu) {
       setCurrent(activeMenu.path);
     } else {

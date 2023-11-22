@@ -9,7 +9,6 @@ function CreateMessage(props: Props) {
   const [form] = Form.useForm();
 
   const handleFinish = (value: { input: string }) => {
-    console.log(value);
     if (value.input) {
       onSubmit?.(value.input);
     }

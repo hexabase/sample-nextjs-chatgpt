@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import Router from "next/router";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+export const CHAT_GPT_URL = process.env.NEXT_PUBLIC_CHAT_GPT_API_URL;
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -35,4 +36,32 @@ api.interceptors.response.use(
   }
 );
 
-export { api };
+const chatGptAPI = axios.create({
+  baseURL: CHAT_GPT_URL,
+  withCredentials: false,
+});
+
+chatGptAPI.interceptors.request.use((config) => {
+  const token = process.env.NEXT_PUBLIC_GPT_API_KEY;
+  config.headers.Authorization = "Bearer " + token;
+  return config;
+});
+
+chatGptAPI.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error: AxiosError) => {
+    if (error?.response?.status === HTTP_STATUS_CONSTANTS.UNAUTHENTICATED) {
+      // Cookies.remove(COOKIES_KEY.ACCESSS_TOKEN);
+      // Router.push(APP_ROUTES.LOGIN);
+    }
+    if (error?.response?.status === HTTP_STATUS_CONSTANTS.NOT_FOUND) {
+      // Router.push(APP_ROUTES.PAGE_404);
+    }
+    return Promise.reject(error?.response || error);
+  }
+);
+
+
+export { api, chatGptAPI };

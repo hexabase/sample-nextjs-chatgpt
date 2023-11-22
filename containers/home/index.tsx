@@ -44,7 +44,6 @@ const HomeContainer: FC = () => {
   };
   return (
     <div className="flex flex-col h-full">
-      test
       <div className="chat-container flex-grow">
         {messages?.length > 0 ? (
           <div className="lg:max-w-2xl lg:mx-auto">

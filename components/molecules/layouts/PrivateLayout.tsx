@@ -19,14 +19,12 @@ const PrivateLayout: React.FC<{ children: any; className?: string }> = ({
   const [springStyles, api] = useSpring(() => spring.FADED);
   // useUser();
   const listChat = useAppSelector((state) => state.listChat.values);
-  console.log(listChat);
 
   const router = useRouter();
 
   // create menu items sidebar
   const menuLeft: any = useMemo(() => {
     const newMenu = [...listChat];
-    console.log(listChat);
     return newMenu
       ?.sort((a, b) =>
         compareDesc(new Date(a.updated_at), new Date(b.updated_at))
