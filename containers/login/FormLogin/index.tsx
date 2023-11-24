@@ -15,7 +15,7 @@ import { COOKIES_KEY } from '@/common/constants/cookie';
 
 const FormLogin: React.FC = () => {
   const {
-    loginMutation: { mutate, isLoading },
+    loginMutation: { mutate },
   } = useAuth();
 
   const router = useRouter();
@@ -60,7 +60,7 @@ const FormLogin: React.FC = () => {
             <ButtonComponent
               variant="out-line"
               text="ログイン"
-              disabled={isLoading}
+            // disabled={isLoading}
             />
           </div>
         </form>

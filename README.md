@@ -73,9 +73,10 @@ cp .env.sample .env.local
 
 - `NEXT_PUBLIC_PORT=3000` # Set server port
 - `NEXT_PUBLIC_API_URL=https://api.hexabase.com/api/v0` # Set api domain
-- `NEXT_PUBLIC_WORKSPACE_ID=xxxxxxxxxxxxxxxxxxxxxxx` # Set workspace ID
 - `NEXT_PUBLIC_CHAT_GPT_API_URL=xxxxxxxxxxxxxxxxxxx` # Set ChatGPT API URL
 - `NEXT_PUBLIC_GPT_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxx` # Set chat GPT key ID
+- `NEXT_PUBLIC_GPT_MODEL=xxxxxxxxxxxxxxxxxxxxxxxxxx` # Set model GPT (GPT3.5, GPT4, ... etc)
+- `NEXT_PUBLIC_WORKSPACE_ID=xxxxxxxxxxxxxxxxxxxxxxx` # Set workspace ID
 
 See [docs](https://apidoc.hexabase.com/en/docs/v0/applications/GetApplicationsAndDatastores) to get project/database ID
 

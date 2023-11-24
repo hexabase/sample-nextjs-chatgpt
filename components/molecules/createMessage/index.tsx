@@ -22,6 +22,7 @@ function CreateMessage(props: Props) {
             autoSize={{ minRows: 1 }}
             size="large"
             placeholder="message"
+            onPressEnter={form.submit}
           />
         </Form.Item>
         <Button

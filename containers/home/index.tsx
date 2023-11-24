@@ -2,7 +2,7 @@ import CreateMessage from '@/components/molecules/createMessage';
 import SystemMessage from '@/components/atoms/Message/System';
 import MyMessage from '@/components/atoms/Message/Me';
 import { FC, useState } from 'react';
-import { Message_Type } from '@/common/types/message';
+import { Message_Type, OpenAIChatRole } from '@/common/types/message';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '@/hooks/useStore';
 import { addNewChat } from '@/store/listChatSlice';
@@ -16,7 +16,7 @@ const HomeContainer: FC = () => {
 
   const handleCreateMessage = async (message: string) => {
     const newMessage = {
-      type: 'user',
+      role: 'user' as OpenAIChatRole,
       content: message,
     };
     setMessages([...messages, newMessage]);
@@ -37,7 +37,7 @@ const HomeContainer: FC = () => {
           };
           dispatch(addNewChat(newChat));
           router.push(newChat.path);
-          setMessages([...messages, ...newMessageData]);
+          // setMessages([...messages, ...newMessageData]);
         }, 500);
       }
     }
@@ -48,7 +48,7 @@ const HomeContainer: FC = () => {
         {messages?.length > 0 ? (
           <div className="lg:max-w-2xl lg:mx-auto">
             {messages.map((message, index) => {
-              if (message.type === 'system') {
+              if (message.role === 'system') {
                 return (
                   <SystemMessage key={index}>{message.content}</SystemMessage>
                 );
