@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hexabase/hexabase-js": "^2.0.5",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.1.0",
     "@react-spring/web": "^9.7.3",
@@ -27,6 +28,8 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^1.0.0",
+    "graphql": "^16.8.1",
+    "hexabase-sdk": "^0.0.22",
     "i18next": "^22.4.13",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
