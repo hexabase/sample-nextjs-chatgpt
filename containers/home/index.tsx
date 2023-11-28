@@ -3,10 +3,15 @@ import { useCreateConversation, useListConversation, useListConversationStore } 
 import { useListConversationMsgStore } from "@/hooks/useConversationMsgHook";
 import { useAppDispatch } from "@/hooks/useStore";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 const HomeContainer: FC = () => {
   const { setListData } = useListConversationStore();
+  const { setListDataMsg } = useListConversationMsgStore();
+
+  useEffect(() => {
+    setListDataMsg([]);
+  }, []);
 
   const router = useRouter();
   const dispatch = useAppDispatch();

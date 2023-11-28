@@ -7,12 +7,12 @@ import { COOKIES_KEY } from "@/common/constants/cookie";
 
 interface ListConversationMsgParams {
   listData: any[];
-  setListData: (listData: any[] | null) => void;
+  setListDataMsg: (listData: any[] | null) => void;
 }
 
 const useListConversationMsgStore = create<ListConversationMsgParams>((set: any) => ({
   listData: [],
-  setListData: (data: any) =>
+  setListDataMsg: (data: any) =>
     set((state: any) => {
       return { ...state, listData: data };
     }),

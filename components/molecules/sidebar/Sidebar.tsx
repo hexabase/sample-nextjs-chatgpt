@@ -43,7 +43,13 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
         };
         return objMenu;
       });
-      return convertedListData;
+      return [
+        ...convertedListData,
+        ...convertedListData,
+        ...convertedListData,
+        ...convertedListData,
+        ...convertedListData,
+      ];
     } else return [];
   }, [listData]);
 
@@ -83,7 +89,7 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
   return (
     <Sider className={cx(styles.side_bar)} collapsed={collapsed} width={256}>
       <div className="flex flex-col h-full">
-        <div className="flex-grow px-5 flex flex-col">
+        <div className="flex-grow px-5 flex flex-col overflow-x-auto">
           <div className="mb-6">
             <Button
               onClick={() => router.push("/")}

@@ -12,9 +12,11 @@ import {
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { COOKIES_KEY } from "@/common/constants/cookie";
+import cx from "classnames";
+import styles from "./styles.module.scss";
 
 function ChatContainer() {
-  const { listData, setListData } = useListConversationMsgStore();
+  const { listData, setListDataMsg } = useListConversationMsgStore();
   const [lstMessage, setLstMessage] = useState<Message_Type[]>([]);
   const [tempMsg, setTempMsg] = useState<Message_Type>({
     role: "assistant",
@@ -26,7 +28,7 @@ function ChatContainer() {
   const firstLoad = useMemo(async () => {
     if (id) {
       let lstConversationApi = await useListConversationMsg(id);
-      setListData(lstConversationApi);
+      setListDataMsg(lstConversationApi);
     }
   }, [id]);
 
@@ -39,6 +41,7 @@ function ChatContainer() {
         };
         return objMsg;
       });
+      setLstMessage(convertedListData);
       return convertedListData;
     } else return [];
   }, [listData]);
@@ -101,10 +104,10 @@ function ChatContainer() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="chat-container flex-grow">
-        {[...lstConversationMsg, tempMsg]?.length > 0 ? (
+      <div className={cx(styles.chatContainer, "flex-grow overflow-x-auto")}>
+        {[...lstMessage, tempMsg]?.length > 0 ? (
           <div className="lg:max-w-2xl lg:mx-auto">
-            {[...lstConversationMsg, tempMsg].map((message, index) => {
+            {[...lstMessage, tempMsg].map((message, index) => {
               if (message.role !== "user" && message.content) {
                 return <SystemMessage key={index}>{message.content}</SystemMessage>;
               } else if (message.role === "user") return <MyMessage key={index} children={message.content}></MyMessage>;
