@@ -1,18 +1,16 @@
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { APP_ROUTES } from "@/common/constants/routes";
+import Menu from "@/components/atoms/menu";
+import { useListConversation, useListConversationStore } from "@/hooks/useConversationHook";
+import Logo from "@/public/images/logo_sidebar.png";
 import type { MenuProps } from "antd";
 import { Button, Layout } from "antd";
 import cx from "classnames";
 import Cookies from "js-cookie";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./sidebar.module.scss";
-import Logo from "@/public/images/logo_sidebar.png";
-import avatarDefault from "@/public/images/avatarDefault.png";
-import Image from "next/image";
-import Menu from "@/components/atoms/menu";
-import { useListConversation, useListConversationStore } from "@/hooks/useConversationHook";
-import { useHexabaseStore } from "@/hooks/useHexabase";
 
 // submenu keys of first level
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
@@ -22,7 +20,6 @@ interface ISidebar {
 }
 
 const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
-  const { client } = useHexabaseStore();
   const { Sider } = Layout;
   const router = useRouter();
 
@@ -31,7 +28,7 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
   const [current, setCurrent] = useState("/");
 
   const firstLoad = useMemo(async () => {
-    let lstConversationApi = await useListConversation(client);
+    let lstConversationApi = await useListConversation();
     setListData(lstConversationApi);
   }, []);
 
@@ -76,6 +73,10 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
 
   const handleLogout = () => {
     Cookies.remove(COOKIES_KEY.ACCESS_TOKEN);
+    Cookies.remove(COOKIES_KEY.USERNAME);
+    Cookies.remove(COOKIES_KEY.EMAIL);
+    Cookies.remove(COOKIES_KEY.USER_ID);
+    Cookies.remove(COOKIES_KEY.PROFILE_PICTURE);
     router.push(APP_ROUTES.LOGIN);
   };
 
@@ -100,8 +101,14 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
           </div>
           <div className="h-[1px] border-t-2 border-t-[#fff] my-5"></div>
           <div className="flex items-center justify-center gap-4">
-            <Image src={avatarDefault} className={cx(styles.avatar)} width={32} height={32} alt="logo" />
-            <span className="text-base text-[#fff]">Test@Hexabase.co.jp</span>
+            <Image
+              src={Cookies.get(COOKIES_KEY.PROFILE_PICTURE) ?? ""}
+              className={cx(styles.avatar)}
+              width={32}
+              height={32}
+              alt="logo"
+            />
+            <span className="text-base text-[#fff]">{Cookies.get(COOKIES_KEY.EMAIL)}</span>
           </div>
         </div>
       </div>

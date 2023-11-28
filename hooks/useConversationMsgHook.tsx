@@ -1,16 +1,16 @@
 import { HexabaseClient } from "@hexabase/hexabase-js";
 import { Item } from "@hexabase/hexabase-js";
 import { create } from "zustand";
-import { CONVERSATIONS } from "@/common/constants/dataStoreHxb";
+import { CONVERSATION_MESSAGES } from "@/common/constants/dataStoreHxb";
 import Cookies from "js-cookie";
 import { COOKIES_KEY } from "@/common/constants/cookie";
 
-interface ListConversationParams {
+interface ListConversationMsgParams {
   listData: any[];
   setListData: (listData: any[] | null) => void;
 }
 
-const useListConversationStore = create<ListConversationParams>((set: any) => ({
+const useListConversationMsgStore = create<ListConversationMsgParams>((set: any) => ({
   listData: [],
   setListData: (data: any) =>
     set((state: any) => {
@@ -18,7 +18,7 @@ const useListConversationStore = create<ListConversationParams>((set: any) => ({
     }),
 }));
 
-const useListConversation = async () => {
+const useListConversationMsg = async (conversation_id: string | string[]) => {
   const client = new HexabaseClient();
   let access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
   if (access_token) client.setToken(access_token);
@@ -26,18 +26,25 @@ const useListConversation = async () => {
 
   const workspace = client.workspace(process.env.NEXT_PUBLIC_WORKSPACE_ID);
   const project = await workspace.project(process.env.NEXT_PUBLIC_PROJECT_ID);
-  const datastore = await project.datastore(CONVERSATIONS);
+  const datastore = await project.datastore(CONVERSATION_MESSAGES);
   const items = await datastore.items({
     page: 1,
     per_page: 0,
     use_display_id: true,
-    sort_field_id: "created_at",
-    sort_order: "desc",
+    conditions: [
+      {
+        id: "conversation_id",
+        search_value: [conversation_id],
+        exact_match: true,
+      },
+    ],
+    // sort_field_id: "created_at",
+    // sort_order: "desc",
   });
   return items;
 };
 
-const useCreateConversation = async (message: string) => {
+const useCreateConversationMsg = async (objConversationMsg: any) => {
   const client = new HexabaseClient();
   let access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
   if (access_token) client.setToken(access_token);
@@ -45,11 +52,14 @@ const useCreateConversation = async (message: string) => {
 
   const workspace = client.workspace(process.env.NEXT_PUBLIC_WORKSPACE_ID);
   const project = await workspace.project(process.env.NEXT_PUBLIC_PROJECT_ID);
-  const datastore = await project.datastore(CONVERSATIONS);
+  const datastore = await project.datastore(CONVERSATION_MESSAGES);
   const item = await datastore.item();
-  item.set("conversation_name", message);
+  item.set("message", objConversationMsg?.content);
+  item.set("conversation_id", objConversationMsg?.conversation_id);
+  item.set("user_id", objConversationMsg?.user_id);
+  item.set("role", objConversationMsg?.role);
   await item.save();
   return item.id;
 };
 
-export { useListConversation, useListConversationStore, useCreateConversation };
+export { useListConversationMsg, useListConversationMsgStore, useCreateConversationMsg };

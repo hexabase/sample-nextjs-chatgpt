@@ -27,6 +27,10 @@ api.interceptors.response.use(
   (error: AxiosError) => {
     if (error?.response?.status === HTTP_STATUS_CONSTANTS.UNAUTHENTICATED) {
       // Cookies.remove(COOKIES_KEY.ACCESS_TOKEN);
+      // Cookies.remove(COOKIES_KEY.USERNAME);
+      // Cookies.remove(COOKIES_KEY.EMAIL);
+      // Cookies.remove(COOKIES_KEY.USER_ID);
+      // Cookies.remove(COOKIES_KEY.PROFILE_PICTURE);
       // Router.push(APP_ROUTES.LOGIN);
     }
     if (error?.response?.status === HTTP_STATUS_CONSTANTS.NOT_FOUND) {
@@ -62,6 +66,5 @@ chatGptAPI.interceptors.response.use(
     return Promise.reject(error?.response || error);
   }
 );
-
 
 export { api, chatGptAPI };

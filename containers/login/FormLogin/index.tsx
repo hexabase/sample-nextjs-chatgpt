@@ -47,6 +47,10 @@ const FormLogin: React.FC = () => {
     if (client) {
       setClientHxb(client);
       Cookies.set(COOKIES_KEY.ACCESS_TOKEN, client.tokenHxb);
+      Cookies.set(COOKIES_KEY.USERNAME, client?.currentUser?.userName ?? "");
+      Cookies.set(COOKIES_KEY.EMAIL, client?.currentUser?.email ?? "");
+      Cookies.set(COOKIES_KEY.USER_ID, client?.currentUser?.id ?? "");
+      Cookies.set(COOKIES_KEY.PROFILE_PICTURE, client?.currentUser?.profilePicture ?? "");
       router.push(APP_ROUTES.HOME);
     }
   };

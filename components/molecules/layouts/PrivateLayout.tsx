@@ -40,7 +40,7 @@ const PrivateLayout: React.FC<{ children: any; className?: string }> = ({ childr
   }, [api, router.pathname]);
 
   return (
-    <div className={cx("flex", "private_layout", [className])}>
+    <div className={cx("flex", "private_layout", [className])} suppressHydrationWarning>
       <Sidebar collapsed={collapsed} />
       <div className="flex-1">
         <div className={cx("private_layout_content")}>
