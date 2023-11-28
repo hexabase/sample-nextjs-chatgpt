@@ -1,13 +1,13 @@
-import CreateMessage from "@/components/molecules/createMessage";
-import SystemMessage from "@/components/atoms/Message/System";
-import MyMessage from "@/components/atoms/Message/Me";
-import { FC, useState } from "react";
 import { Message_Type, OpenAIChatRole } from "@/common/types/message";
-import { useRouter } from "next/router";
+import MyMessage from "@/components/atoms/Message/Me";
+import SystemMessage from "@/components/atoms/Message/System";
+import CreateMessage from "@/components/molecules/createMessage";
+import { useHexabaseStore } from "@/hooks/useHexabase";
 import { useAppDispatch } from "@/hooks/useStore";
 import { addNewChat } from "@/store/listChatSlice";
 import { format } from "date-fns";
-import { useHexabaseStore } from "@/hooks/useHexabase";
+import { useRouter } from "next/router";
+import { FC, useState } from "react";
 
 const HomeContainer: FC = () => {
   const { client } = useHexabaseStore();
@@ -15,8 +15,6 @@ const HomeContainer: FC = () => {
 
   const router = useRouter();
   const dispatch = useAppDispatch();
-
-  console.log(client);
 
   const handleCreateMessage = async (message: string) => {
     const newMessage = {

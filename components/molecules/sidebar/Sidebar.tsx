@@ -1,33 +1,56 @@
-import { COOKIES_KEY } from '@/common/constants/cookie';
-import { APP_ROUTES } from '@/common/constants/routes';
-import type { MenuProps } from 'antd';
-import { Button, Layout } from 'antd';
-import cx from 'classnames';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import styles from './sidebar.module.scss';
-import Logo from '@/public/images/logo_sidebar.png';
-import avatarDefault from '@/public/images/avatarDefault.png';
-import Image from 'next/image';
-import Menu from '@/components/atoms/menu';
+import { COOKIES_KEY } from "@/common/constants/cookie";
+import { APP_ROUTES } from "@/common/constants/routes";
+import type { MenuProps } from "antd";
+import { Button, Layout } from "antd";
+import cx from "classnames";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import React, { useEffect, useMemo, useState } from "react";
+import styles from "./sidebar.module.scss";
+import Logo from "@/public/images/logo_sidebar.png";
+import avatarDefault from "@/public/images/avatarDefault.png";
+import Image from "next/image";
+import Menu from "@/components/atoms/menu";
+import { useListConversation, useListConversationStore } from "@/hooks/useConversationHook";
+import { useHexabaseStore } from "@/hooks/useHexabase";
 
 // submenu keys of first level
-const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
 interface ISidebar {
   collapsed: boolean;
-  menu: any;
 }
 
-const Sidebar: React.FC<ISidebar> = ({ collapsed, menu }) => {
+const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
+  const { client } = useHexabaseStore();
   const { Sider } = Layout;
   const router = useRouter();
 
-  const [openKeys, setOpenKeys] = useState(['sub1']);
-  const [current, setCurrent] = useState('/');
+  const { listData, setListData } = useListConversationStore();
+  const [openKeys, setOpenKeys] = useState(["sub1"]);
+  const [current, setCurrent] = useState("/");
 
-  const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
+  const firstLoad = useMemo(async () => {
+    let lstConversationApi = await useListConversation(client);
+    setListData(lstConversationApi);
+  }, []);
+
+  const lstConversation = useMemo(() => {
+    if (listData) {
+      let convertedListData = listData.map((item) => {
+        let objMenu = {
+          ...item,
+          label: item.title,
+          key: item.id,
+          route: item.id,
+        };
+        return objMenu;
+      });
+      return convertedListData;
+    } else return [];
+  }, [listData]);
+
+  const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
       setOpenKeys(keys);
@@ -43,13 +66,13 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed, menu }) => {
 
   useEffect(() => {
     const url = router.query.id;
-    const activeMenu = menu.find((item: any) => url && url == item.id);
+    const activeMenu = listData.find((item: any) => url && url == item.id);
     if (activeMenu) {
-      setCurrent(activeMenu.path);
+      setCurrent(activeMenu.id);
     } else {
-      setCurrent('/');
+      setCurrent("/");
     }
-  }, [router.pathname, menu]);
+  }, [router.pathname, listData]);
 
   const handleLogout = () => {
     Cookies.remove(COOKIES_KEY.ACCESS_TOKEN);
@@ -62,14 +85,14 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed, menu }) => {
         <div className="flex-grow px-5 flex flex-col">
           <div className="mb-6">
             <Button
-              onClick={() => router.push('/')}
+              onClick={() => router.push("/")}
               size="large"
               className="w-full !text-[#fff] hover:!text-[#fff] hover:!border-[#fff]"
             >
               New Chat
             </Button>
           </div>
-          <Menu menuItems={menu} onClick={onClick} selectedKeys={current} />
+          <Menu menuItems={lstConversation} onClick={onClick} selectedKeys={current} />
         </div>
         <div>
           <div className="flex items-center justify-center">
@@ -77,13 +100,7 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed, menu }) => {
           </div>
           <div className="h-[1px] border-t-2 border-t-[#fff] my-5"></div>
           <div className="flex items-center justify-center gap-4">
-            <Image
-              src={avatarDefault}
-              className={cx(styles.avatar)}
-              width={32}
-              height={32}
-              alt="logo"
-            />
+            <Image src={avatarDefault} className={cx(styles.avatar)} width={32} height={32} alt="logo" />
             <span className="text-base text-[#fff]">Test@Hexabase.co.jp</span>
           </div>
         </div>
