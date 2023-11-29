@@ -28,14 +28,14 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
   const [current, setCurrent] = useState("/");
 
   const firstLoad = useMemo(async () => {
-    let lstConversationApi = await useListConversation();
+    const lstConversationApi = await useListConversation();
     setListData(lstConversationApi);
   }, []);
 
   const lstConversation = useMemo(() => {
     if (listData) {
-      let convertedListData = listData.map((item) => {
-        let objMenu = {
+      const convertedListData = listData.map((item) => {
+        const objMenu = {
           ...item,
           label: item.title,
           key: item.id,
@@ -44,10 +44,6 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
         return objMenu;
       });
       return [
-        ...convertedListData,
-        ...convertedListData,
-        ...convertedListData,
-        ...convertedListData,
         ...convertedListData,
       ];
     } else return [];
