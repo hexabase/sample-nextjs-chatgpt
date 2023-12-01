@@ -1,3 +1,4 @@
+'use client'
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { APP_ROUTES } from "@/common/constants/routes";
 import Menu from "@/components/atoms/menu";
@@ -8,9 +9,10 @@ import { Button, Layout } from "antd";
 import cx from "classnames";
 import Cookies from "js-cookie";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./sidebar.module.scss";
+
 
 // submenu keys of first level
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
@@ -21,7 +23,11 @@ interface ISidebar {
 
 const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
   const { Sider } = Layout;
-  const router = useRouter();
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const id = searchParams.get('id')
 
   const { listData, setListData } = useListConversationStore();
   const [openKeys, setOpenKeys] = useState(["sub1"]);
@@ -64,14 +70,14 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
   };
 
   useEffect(() => {
-    const url = router.query.id;
+    const url = id;
     const activeMenu = listData.find((item: any) => url && url == item.id);
     if (activeMenu) {
       setCurrent(activeMenu.id);
     } else {
       setCurrent("/");
     }
-  }, [router.pathname, listData]);
+  }, [pathname, listData]);
 
   const handleLogout = () => {
     Cookies.remove(COOKIES_KEY.ACCESS_TOKEN);

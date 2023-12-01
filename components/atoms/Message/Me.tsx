@@ -1,3 +1,4 @@
+'use client'
 import { Message_Type } from '@/common/types/message';
 import styles from '@/components/atoms/Message/Me.module.scss';
 import React from 'react';

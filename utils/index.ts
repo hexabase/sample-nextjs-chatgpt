@@ -1,3 +1,4 @@
+'use client'
 import { REVERSED_DATE_FORMAT } from "@/common/constants/dateFormat";
 import moment from "moment";
 

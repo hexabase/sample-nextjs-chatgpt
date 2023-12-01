@@ -1,3 +1,4 @@
+'use client'
 export const FADED = { // faded
   from: {
     opacity: 0,

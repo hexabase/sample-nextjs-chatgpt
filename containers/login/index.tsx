@@ -1,3 +1,5 @@
+'use client'
+
 import { FC } from "react";
 import cx from "classnames";
 import FormLogin from "./FormLogin";

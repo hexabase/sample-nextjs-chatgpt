@@ -1,8 +1,8 @@
+'use client'
 import CreateMessage from "@/components/molecules/createMessage";
 import { useCreateConversation, useListConversation, useListConversationStore } from "@/hooks/useConversationHook";
 import { useListConversationMsgStore } from "@/hooks/useConversationMsgHook";
-import { useAppDispatch } from "@/hooks/useStore";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
 
 const HomeContainer: FC = () => {
@@ -14,7 +14,6 @@ const HomeContainer: FC = () => {
   }, []);
 
   const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const handleCreateMessage = async (message: string) => {
     if (message) {
@@ -26,6 +25,7 @@ const HomeContainer: FC = () => {
       }
     }
   };
+
   return (
     <div className="flex flex-col h-full">
       <div className="chat-container flex-grow">

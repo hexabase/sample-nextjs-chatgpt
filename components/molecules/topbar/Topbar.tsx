@@ -1,9 +1,10 @@
+'use client'
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { APP_ROUTES } from "@/common/constants/routes";
 import { Layout } from "antd";
 import cx from "classnames";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 import styles from "./topbar.module.scss";
 import { useTopBarStore } from "@/hooks/useTopBar";

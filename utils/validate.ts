@@ -1,3 +1,4 @@
+'use client'
 const validate = {
   passwordStrength(pw: string): number {
     return (

@@ -1,3 +1,4 @@
+'use client'
 import IconSend from "@/components/atoms/icons/IconSend";
 import { Button, Form, Input } from "antd";
 import React from "react";

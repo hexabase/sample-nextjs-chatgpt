@@ -1,3 +1,4 @@
+'use client'
 import { authServiceApi } from '@/services/auth-service';
 import { useMutation } from '@tanstack/react-query';
 

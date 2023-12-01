@@ -1,3 +1,4 @@
+'use client'
 import { HexabaseClient } from "@hexabase/hexabase-js";
 import { Item } from "@hexabase/hexabase-js";
 import { create } from "zustand";

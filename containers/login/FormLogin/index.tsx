@@ -1,3 +1,4 @@
+'use client'
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { APP_ROUTES } from "@/common/constants/routes";
 import { loginSchema } from "@/common/form-schemas";
@@ -8,7 +9,7 @@ import useAuth from "@/hooks/useAuth";
 import { useHexabase, useHexabaseStore } from "@/hooks/useHexabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -69,7 +70,7 @@ const FormLogin: React.FC = () => {
             <ButtonComponent
               variant="out-line"
               text="ログイン"
-              // disabled={isLoading}
+            // disabled={isLoading}
             />
           </div>
         </form>
