@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/runtime": "^7.23.5",
     "@hexabase/hexabase-js": "^2.0.5",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.1.0",
@@ -20,7 +21,7 @@
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "antd": "^5.5.1",
+    "antd": "^5.11.5",
     "axios": "^1.3.4",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
@@ -34,7 +35,7 @@
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "next": "13.2.4",
+    "next": "14.0.3",
     "next-auth": "^4.22.1",
     "next-i18next": "^13.2.2",
     "next-seo": "^5.15.0",

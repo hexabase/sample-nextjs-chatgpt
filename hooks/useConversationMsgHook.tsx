@@ -38,8 +38,8 @@ const useListConversationMsg = async (conversation_id: string | string[]) => {
         exact_match: true,
       },
     ],
-    // sort_field_id: "created_at",
-    // sort_order: "desc",
+    sort_field_id: "created_at",
+    sort_order: "asc",
   });
   return items;
 };
