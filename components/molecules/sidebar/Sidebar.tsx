@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { APP_ROUTES } from "@/common/constants/routes";
 import Menu from "@/components/atoms/menu";
@@ -13,21 +13,17 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./sidebar.module.scss";
 
-
 // submenu keys of first level
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
 interface ISidebar {
   collapsed: boolean;
+  id?: string;
 }
 
-const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
+const Sidebar: React.FC<ISidebar> = ({ collapsed, id }) => {
   const { Sider } = Layout;
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-
-  const id = searchParams.get('id')
+  const router = useRouter();
 
   const { listData, setListData } = useListConversationStore();
   const [openKeys, setOpenKeys] = useState(["sub1"]);
@@ -49,9 +45,7 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
         };
         return objMenu;
       });
-      return [
-        ...convertedListData,
-      ];
+      return [...convertedListData];
     } else return [];
   }, [listData]);
 
@@ -77,7 +71,7 @@ const Sidebar: React.FC<ISidebar> = ({ collapsed }) => {
     } else {
       setCurrent("/");
     }
-  }, [pathname, listData]);
+  }, [id, listData]);
 
   const handleLogout = () => {
     Cookies.remove(COOKIES_KEY.ACCESS_TOKEN);

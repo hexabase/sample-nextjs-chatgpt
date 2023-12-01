@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { Message_Type, OpenAIChatRole } from "@/common/types/message";
 import MyMessage from "@/components/atoms/Message/Me";
@@ -12,7 +12,6 @@ import {
 } from "@/hooks/useConversationMsgHook";
 import cx from "classnames";
 import Cookies from "js-cookie";
-import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -23,9 +22,11 @@ const ChatContainer: React.FC<{ id: string }> = ({ id }) => {
     role: "assistant",
     content: "",
   });
-  // const pathname = usePathname()
 
-  // console.log(pathname)
+  useEffect(() => {
+    setLstMessage([]);
+  }, [id]);
+
   const firstLoad = useMemo(async () => {
     if (id) {
       let lstConversationApi = await useListConversationMsg(id);
@@ -123,6 +124,6 @@ const ChatContainer: React.FC<{ id: string }> = ({ id }) => {
       </div>
     </div>
   );
-}
+};
 
 export default ChatContainer;
