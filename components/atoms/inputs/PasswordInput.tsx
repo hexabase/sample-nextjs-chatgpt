@@ -1,4 +1,3 @@
-'use client'
 import React from 'react';
 import cx from 'classnames';
 import { InputProps } from 'antd';
@@ -15,7 +14,8 @@ export const PasswordInput: React.FC<typeInput> = (props: typeInput) => {
   const { className, field, onBlur, onChange, ...rest } = props;
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (e.target.value.trim() !== field?.value) field?.onChange(e.target.value.trim());
+    if (e.target.value.trim() !== field?.value)
+      field?.onChange(e.target.value.trim());
     field?.onBlur();
     if (onBlur) onBlur();
   };

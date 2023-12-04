@@ -1,4 +1,3 @@
-'use client'
 import styles from '@/components/atoms/Message/System.module.scss';
 import React from 'react';
 

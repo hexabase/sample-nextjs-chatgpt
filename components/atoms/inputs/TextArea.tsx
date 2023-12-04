@@ -1,8 +1,7 @@
-'use client'
-import React from "react";
-import classnames from "classnames";
-import { Input, InputProps } from "antd";
-import styles from "./styles.module.scss";
+import React from 'react';
+import classnames from 'classnames';
+import { Input, InputProps } from 'antd';
+import styles from './styles.module.scss';
 
 export interface typeInput extends InputProps {
   ref?: any;
@@ -17,10 +16,22 @@ export interface typeInput extends InputProps {
 }
 
 export const TextArea: React.FC<typeInput> = (props: typeInput) => {
-  const { className, field, onBlur, onChange, onSendMessage, ref, minRows, maxRows, handleSubmit, ...rest } = props;
+  const {
+    className,
+    field,
+    onBlur,
+    onChange,
+    onSendMessage,
+    ref,
+    minRows,
+    maxRows,
+    handleSubmit,
+    ...rest
+  } = props;
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (e.target.value.trim() !== field?.value) field?.onChange(e.target.value.trim());
+    if (e.target.value.trim() !== field?.value)
+      field?.onChange(e.target.value.trim());
     field?.onBlur();
     if (onBlur) onBlur();
   };
@@ -39,11 +50,18 @@ export const TextArea: React.FC<typeInput> = (props: typeInput) => {
       onChange={handleOnChange}
       onPressEnter={(e) => {
         e.preventDefault();
-        handleSubmit(onSendMessage({ message: (e.target as HTMLTextAreaElement).value.trim() }));
+        handleSubmit(
+          onSendMessage({
+            message: (e.target as HTMLTextAreaElement).value.trim(),
+          })
+        );
       }}
       style={{ minHeight: 44 }}
       className={classnames(styles.input_component, [className])}
-      autoSize={{ minRows: minRows ? minRows : 1, maxRows: maxRows ? maxRows : 5 }}
+      autoSize={{
+        minRows: minRows ? minRows : 1,
+        maxRows: maxRows ? maxRows : 5,
+      }}
     />
   );
 };

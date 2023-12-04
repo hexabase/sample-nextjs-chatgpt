@@ -1,4 +1,3 @@
-"use client";
 import spring from "@/utils/spring";
 import { animated, useSpring } from "@react-spring/web";
 import classNames from "classnames/bind";

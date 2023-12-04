@@ -1,10 +1,10 @@
-'use client'
-import { HexabaseClient } from "@hexabase/hexabase-js";
-import { Item } from "@hexabase/hexabase-js";
-import { create } from "zustand";
-import { CONVERSATIONS } from "@/common/constants/dataStoreHxb";
-import Cookies from "js-cookie";
-import { COOKIES_KEY } from "@/common/constants/cookie";
+'use client';
+import { HexabaseClient } from '@hexabase/hexabase-js';
+import { Item } from '@hexabase/hexabase-js';
+import { create } from 'zustand';
+import { CONVERSATIONS } from '@/common/constants/dataStoreHxb';
+import Cookies from 'js-cookie';
+import { COOKIES_KEY } from '@/common/constants/cookie';
 
 interface ListConversationParams {
   listData: any[];
@@ -21,7 +21,7 @@ const useListConversationStore = create<ListConversationParams>((set: any) => ({
 
 const useListConversation = async () => {
   const client = new HexabaseClient();
-  let access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
+  const access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
   if (access_token) client.setToken(access_token);
   else return [];
 
@@ -32,15 +32,15 @@ const useListConversation = async () => {
     page: 1,
     per_page: 0,
     use_display_id: true,
-    sort_field_id: "created_at",
-    sort_order: "desc",
+    sort_field_id: 'created_at',
+    sort_order: 'desc',
   });
   return items;
 };
 
 const useCreateConversation = async (message: string) => {
   const client = new HexabaseClient();
-  let access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
+  const access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
   if (access_token) client.setToken(access_token);
   else return undefined;
 
@@ -48,7 +48,7 @@ const useCreateConversation = async (message: string) => {
   const project = await workspace.project(process.env.NEXT_PUBLIC_PROJECT_ID);
   const datastore = await project.datastore(CONVERSATIONS);
   const item = await datastore.item();
-  item.set("conversation_name", message);
+  item.set('conversation_name', message);
   await item.save();
   return item.id;
 };

@@ -1,14 +1,19 @@
-'use client'
 import React from 'react';
 import { Input } from 'antd';
 import cx from 'classnames';
 import styles from './styles.module.scss';
 
-export const formatNumber = (value: number | string, numberDigitsAfter?: number) => {
+export const formatNumber = (
+  value: number | string,
+  numberDigitsAfter?: number
+) => {
   const splitNumber = String(value).split('.');
   const integerPart = splitNumber[0];
   const decimalPart = splitNumber[1];
-  const _decimalPart = numberDigitsAfter && decimalPart ? decimalPart?.substring(0, numberDigitsAfter) : decimalPart;
+  const _decimalPart =
+    numberDigitsAfter && decimalPart
+      ? decimalPart?.substring(0, numberDigitsAfter)
+      : decimalPart;
   const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   if (splitNumber.length === 2) {
     return formattedInteger + '.' + _decimalPart;
@@ -55,7 +60,9 @@ const InputNumber: React.FC<{
       const splitValue = value?.split(dot);
       const dotPosition = value?.indexOf(dot);
       if (value?.indexOf(dot) === 0) {
-        const _value = '0'.concat('.').concat(splitValue[1].substring(0, numberDigitsAfter));
+        const _value = '0'
+          .concat('.')
+          .concat(splitValue[1].substring(0, numberDigitsAfter));
         field && field?.onChange(_value);
         return handleChangeValue(value);
       }
@@ -69,7 +76,8 @@ const InputNumber: React.FC<{
         field && field?.onChange(_value);
         return handleChangeValue(_value);
       } else {
-        const position = dotPosition < numberDigitsBefore ? dotPosition : numberDigitsBefore;
+        const position =
+          dotPosition < numberDigitsBefore ? dotPosition : numberDigitsBefore;
         const beforeValue = splitValue[0].substring(0, position);
         const afterValue = splitValue[1].substring(0, numberDigitsAfter);
         const _value = beforeValue.concat('.').concat(afterValue);
@@ -84,7 +92,12 @@ const InputNumber: React.FC<{
   const handleKeyDown = (e: any) => {
     try {
       const value = e.target.value;
-      if (!listNumberKey.includes(e.key) && !extensionKey.includes(e.key) && e.key !== backspace && e.key !== dot) {
+      if (
+        !listNumberKey.includes(e.key) &&
+        !extensionKey.includes(e.key) &&
+        e.key !== backspace &&
+        e.key !== dot
+      ) {
         e.preventDefault();
       }
       if (e.key === dot) {
