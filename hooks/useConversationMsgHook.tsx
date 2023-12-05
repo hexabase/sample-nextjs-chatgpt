@@ -1,26 +1,29 @@
-import { HexabaseClient } from "@hexabase/hexabase-js";
-import { Item } from "@hexabase/hexabase-js";
-import { create } from "zustand";
-import { CONVERSATION_MESSAGES } from "@/common/constants/dataStoreHxb";
-import Cookies from "js-cookie";
-import { COOKIES_KEY } from "@/common/constants/cookie";
+'use client';
+import { HexabaseClient } from '@hexabase/hexabase-js';
+import { Item } from '@hexabase/hexabase-js';
+import { create } from 'zustand';
+import { CONVERSATION_MESSAGES } from '@/common/constants/dataStoreHxb';
+import Cookies from 'js-cookie';
+import { COOKIES_KEY } from '@/common/constants/cookie';
 
 interface ListConversationMsgParams {
   listData: any[];
   setListDataMsg: (listData: any[] | null) => void;
 }
 
-const useListConversationMsgStore = create<ListConversationMsgParams>((set: any) => ({
-  listData: [],
-  setListDataMsg: (data: any) =>
-    set((state: any) => {
-      return { ...state, listData: data };
-    }),
-}));
+const useListConversationMsgStore = create<ListConversationMsgParams>(
+  (set: any) => ({
+    listData: [],
+    setListDataMsg: (data: any) =>
+      set((state: any) => {
+        return { ...state, listData: data };
+      }),
+  })
+);
 
 const useListConversationMsg = async (conversation_id: string | string[]) => {
   const client = new HexabaseClient();
-  let access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
+  const access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
   if (access_token) client.setToken(access_token);
   else return [];
 
@@ -33,20 +36,20 @@ const useListConversationMsg = async (conversation_id: string | string[]) => {
     use_display_id: true,
     conditions: [
       {
-        id: "conversation_id",
+        id: 'conversation_id',
         search_value: [conversation_id],
         exact_match: true,
       },
     ],
-    // sort_field_id: "created_at",
-    // sort_order: "desc",
+    sort_field_id: 'created_at',
+    sort_order: 'asc',
   });
   return items;
 };
 
 const useCreateConversationMsg = async (objConversationMsg: any) => {
   const client = new HexabaseClient();
-  let access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
+  const access_token = Cookies.get(COOKIES_KEY.ACCESS_TOKEN);
   if (access_token) client.setToken(access_token);
   else return undefined;
 
@@ -54,12 +57,16 @@ const useCreateConversationMsg = async (objConversationMsg: any) => {
   const project = await workspace.project(process.env.NEXT_PUBLIC_PROJECT_ID);
   const datastore = await project.datastore(CONVERSATION_MESSAGES);
   const item = await datastore.item();
-  item.set("message", objConversationMsg?.content);
-  item.set("conversation_id", objConversationMsg?.conversation_id);
-  item.set("user_id", objConversationMsg?.user_id);
-  item.set("role", objConversationMsg?.role);
+  item.set('message', objConversationMsg?.content);
+  item.set('conversation_id', objConversationMsg?.conversation_id);
+  item.set('user_id', objConversationMsg?.user_id);
+  item.set('role', objConversationMsg?.role);
   await item.save();
   return item.id;
 };
 
-export { useListConversationMsg, useListConversationMsgStore, useCreateConversationMsg };
+export {
+  useListConversationMsg,
+  useListConversationMsgStore,
+  useCreateConversationMsg,
+};

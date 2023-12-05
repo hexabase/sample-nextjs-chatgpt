@@ -1,3 +1,4 @@
+'use client'
 import type { OpenAIStreamingParams, OpenAIChatMessage, FetchRequestOptions, OpenAIChatRole, OpenAIChatCompletionChunk } from "./types";
 
 // Converts the OpenAI API params + chat messages list + an optional AbortSignal into a shape that
