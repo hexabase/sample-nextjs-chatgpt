@@ -20,11 +20,13 @@ const useUserStore = create<UserStoreParams>((set: any) => ({
 
 const useUser = () => {
   const { setUser } = useUserStore();
-  const { data } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["user-info"],
-    queryFn: getUserInfo,
-    onSuccess: (data) => setUser(data),
+    queryFn: () => getUserInfo(),
   });
+  if (isSuccess) {
+    setUser(data)
+  }
   return data;
 };
 

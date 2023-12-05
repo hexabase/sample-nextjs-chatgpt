@@ -1,0 +1,3 @@
+export const CONVERSATIONS = "6558259d01eb73c38d829eb2";
+export const CONVERSATION_MESSAGES = "6558260e245accaeb79d5fa0";
+export const USERS = "6558255201eb73c38d829eae";
