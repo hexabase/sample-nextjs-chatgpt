@@ -146,7 +146,6 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ├── Dockerfile
 ├── next.config.js
 ├── next-env.d.ts
-├── next-i18next.config.js
 ├── package.json
 ├── postcss.config.js
 ├── README.md
