@@ -123,18 +123,14 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 │   │   ├── style.module.scss
 ├── hooks - where to declare global states that are used by locations
 │   ├── ${hookName}.tsx
-├── pages - where to declare routes of project
-│   ├── _app.tsx - where to declare root content of pages
-│   ├── _document.tsx
-│   ├── index.tsx - means `/` location
-│   ├── ${routeName}.tsx - means `${routeName}` location
+├── app - where to declare routes of project
+│   ├── [lng] - where to declare router languages
+│   │   ├── layout.tsx - A layout is UI that is shared between multiple pages.
+│   │   ├── page.tsx - means `/` location
+│   │   ├── [folderName]
+│   │   │   ├── page.tsx - means `${routeName}` location
 ├── public - where to declare which are public for clients
 │   ├── images
-│   ├── locales - where to declare multiple language for project
-│   │   ├── en
-│   │   │   ├── common.json
-│   │   ├── ja
-│   │   │   ├── common.json
 ├── services - where to declare which Apis used in project
 │   ├── api.ts - where to declare initial api
 │   ├── ${apiService}.ts - where to declare api service
@@ -150,7 +146,6 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ├── Dockerfile
 ├── next.config.js
 ├── next-env.d.ts
-├── next-i18next.config.js
 ├── package.json
 ├── postcss.config.js
 ├── README.md

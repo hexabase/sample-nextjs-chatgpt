@@ -1,12 +1,12 @@
-import { COOKIES_KEY } from "@/common/constants/cookie";
-import { APP_ROUTES } from "@/common/constants/routes";
-import { Layout } from "antd";
-import cx from "classnames";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
-import React from "react";
-import styles from "./topbar.module.scss";
-import { useTopBarStore } from "@/hooks/useTopBar";
+import { COOKIES_KEY } from '@/common/constants/cookie';
+import { APP_ROUTES } from '@/common/constants/routes';
+import { Layout } from 'antd';
+import cx from 'classnames';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import styles from './topbar.module.scss';
+import { useTopBarStore } from '@/hooks/useTopBar';
 
 const Topbar: React.FC = () => {
   const { title } = useTopBarStore();
@@ -23,7 +23,7 @@ const Topbar: React.FC = () => {
   };
 
   return (
-    <Sider className={cx(styles.top_bar)} width={"100%"}>
+    <Sider className={cx(styles.top_bar)} width={'100%'}>
       <div className="flex items-center justify-between font-semibold p-4 h-full">
         <span>{title}</span>
       </div>

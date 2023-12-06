@@ -1,6 +1,6 @@
-import IconSend from "@/components/atoms/icons/IconSend";
-import { Button, Form, Input } from "antd";
-import React from "react";
+import IconSend from '@/components/atoms/icons/IconSend';
+import { Button, Form, Input } from 'antd';
+import React from 'react';
 interface Props {
   onSubmit?: (message: string) => void;
   placeHolderText: string;
@@ -26,7 +26,11 @@ function CreateMessage(props: Props) {
             onPressEnter={form.submit}
           />
         </Form.Item>
-        <Button size="large" htmlType="submit" className="!px-5 hover:!text-[#000] hover:!border-[#00000040]">
+        <Button
+          size="large"
+          htmlType="submit"
+          className="!px-5 hover:!text-[#000] hover:!border-[#00000040]"
+        >
           <IconSend />
         </Button>
       </div>

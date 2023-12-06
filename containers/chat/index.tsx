@@ -1,29 +1,31 @@
+"use client";
+import { COOKIES_KEY } from "@/common/constants/cookie";
 import { Message_Type, OpenAIChatRole } from "@/common/types/message";
 import MyMessage from "@/components/atoms/Message/Me";
 import SystemMessage from "@/components/atoms/Message/System";
 import CreateMessage from "@/components/molecules/createMessage";
 import { useChatCompletion } from "@/hooks/openAIStreamingHooks";
-import { useEffect, useMemo, useState } from "react";
 import {
+  useCreateConversationMsg,
   useListConversationMsg,
   useListConversationMsgStore,
-  useCreateConversationMsg,
 } from "@/hooks/useConversationMsgHook";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
-import { COOKIES_KEY } from "@/common/constants/cookie";
 import cx from "classnames";
+import Cookies from "js-cookie";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 
-function ChatContainer() {
+const ChatContainer: React.FC<{ id: string }> = ({ id }) => {
   const { listData, setListDataMsg } = useListConversationMsgStore();
   const [lstMessage, setLstMessage] = useState<Message_Type[]>([]);
   const [tempMsg, setTempMsg] = useState<Message_Type>({
     role: "assistant",
     content: "",
   });
-  const router = useRouter();
-  const { id } = router.query;
+
+  useEffect(() => {
+    setLstMessage([]);
+  }, [id]);
 
   const firstLoad = useMemo(async () => {
     if (id) {
@@ -122,6 +124,6 @@ function ChatContainer() {
       </div>
     </div>
   );
-}
+};
 
 export default ChatContainer;

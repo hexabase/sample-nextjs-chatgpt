@@ -1,3 +1,4 @@
+'use client'
 import { chatGPTServiceApi } from '@/services/chatgpt-service';
 import { useMutation } from '@tanstack/react-query';
 

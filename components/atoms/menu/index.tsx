@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./styles.module.scss";
-import { List_Chat_Type } from "@/common/types/message";
-import IconChat from "../icons/IconChat";
-import { format } from "date-fns";
-import classNames from "classnames";
+import styles from './styles.module.scss';
+import { List_Chat_Type } from '@/common/types/message';
+import IconChat from '../icons/IconChat';
+import { format } from 'date-fns';
+import classNames from 'classnames';
 
 interface Menu_Type extends List_Chat_Type {
   label: string;
@@ -27,7 +27,9 @@ function Menu(props: Props) {
           menuItems.map((menuItem) => {
             return (
               <li
-                className={classNames(menuItem.key === selectedKeys ? styles.selected : "")}
+                className={classNames(
+                  menuItem.key === selectedKeys ? styles.selected : ''
+                )}
                 key={menuItem.key}
                 onClick={() => onClick?.(menuItem)}
               >
@@ -36,7 +38,9 @@ function Menu(props: Props) {
                   <span className="truncate">{menuItem.label}</span>
                 </div>
                 {menuItem.updated_at && (
-                  <span className="text-xs">{format(new Date(menuItem.updated_at), "yyyy.MM.dd")}</span>
+                  <span className="text-xs">
+                    {format(new Date(menuItem.updated_at), 'yyyy.MM.dd')}
+                  </span>
                 )}
               </li>
             );

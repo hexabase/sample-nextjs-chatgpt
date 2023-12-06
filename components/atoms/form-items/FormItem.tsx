@@ -1,4 +1,11 @@
-import { Children, cloneElement, FC, isValidElement, PropsWithChildren, ReactNode } from 'react';
+import {
+  Children,
+  cloneElement,
+  FC,
+  isValidElement,
+  PropsWithChildren,
+  ReactNode,
+} from 'react';
 import cx from 'classnames';
 import { Controller, useFormContext } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
@@ -79,7 +86,11 @@ const FormItem: FC<
         <ErrorMessage
           errors={errors}
           name={name}
-          render={({ message }) => <div className={cx('text-red-500 mt-2', errorClassName)}>{message}</div>}
+          render={({ message }) => (
+            <div className={cx('text-red-500 mt-2', errorClassName)}>
+              {message}
+            </div>
+          )}
         />
       )}
     </div>

@@ -2,7 +2,14 @@ import React from 'react';
 import cx from 'classnames';
 import styles from './styles.module.scss';
 
-declare const ButtonVariants: ['default', 'primary', 'secondary', 'out-line', 'cancel-out-line', 'warning-out-line'];
+declare const ButtonVariants: [
+  'default',
+  'primary',
+  'secondary',
+  'out-line',
+  'cancel-out-line',
+  'warning-out-line'
+];
 declare type ButtonVariant = (typeof ButtonVariants)[number];
 
 type props = {
@@ -34,7 +41,9 @@ const ButtonComponent: React.FC<props> = ({
     <button
       {...props}
       disabled={disabled}
-      className={cx(styles.solidBtn, styles[`solidBtn--${variant}`], [customClassName])}
+      className={cx(styles.solidBtn, styles[`solidBtn--${variant}`], [
+        customClassName,
+      ])}
     >
       {prefixIcon}
       <span className={cx([textClassName])}>{text}</span>
