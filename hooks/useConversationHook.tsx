@@ -1,5 +1,5 @@
 'use client';
-import { HexabaseClient } from '@hexabase/hexabase-js';
+import { HexabaseClient, Workspace } from '@hexabase/hexabase-js';
 import { Item } from '@hexabase/hexabase-js';
 import { create } from 'zustand';
 import { CONVERSATIONS } from '@/common/constants/dataStoreHxb';
@@ -25,7 +25,9 @@ const useListConversation = async () => {
   if (access_token) client.setToken(access_token);
   else return [];
 
-  const workspace = client.workspace(process.env.NEXT_PUBLIC_WORKSPACE_ID);
+  await client.setWorkspace(process.env.NEXT_PUBLIC_WORKSPACE_ID);
+
+  const workspace = client.currentWorkspace as Workspace;
   const project = await workspace.project(process.env.NEXT_PUBLIC_PROJECT_ID);
   const datastore = await project.datastore(CONVERSATIONS);
   const items = await datastore.items({
@@ -44,7 +46,9 @@ const useCreateConversation = async (message: string) => {
   if (access_token) client.setToken(access_token);
   else return undefined;
 
-  const workspace = client.workspace(process.env.NEXT_PUBLIC_WORKSPACE_ID);
+  await client.setWorkspace(process.env.NEXT_PUBLIC_WORKSPACE_ID);
+
+  const workspace = client.currentWorkspace as Workspace;
   const project = await workspace.project(process.env.NEXT_PUBLIC_PROJECT_ID);
   const datastore = await project.datastore(CONVERSATIONS);
   const item = await datastore.item();
