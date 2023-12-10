@@ -5,7 +5,8 @@
 This is chatGPT application
 
 ## Demo
-![alt text](https://github.com/hexabase/sample-nextjs-chatgpt/tree/develop/public/images/DemoGPTTalk.gif "Demo ChatGPT")
+
+![alt text](https://github.com/hexabase/sample-nextjs-chatgpt/blob/develop/public/images/DemoGPTTalk.gif "Demo ChatGPT")
 
 ## Prerequisites
 
