@@ -4,6 +4,10 @@
 
 This is chatGPT application
 
+## Demo
+
+![alt text](https://github.com/hexabase/sample-nextjs-chatgpt/blob/develop/public/images/DemoGPTTalk.gif "Demo ChatGPT")
+
 ## Prerequisites
 
 Download and install or execute cmd to install
