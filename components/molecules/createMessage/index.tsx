@@ -3,13 +3,13 @@ import { Button, Form, Input } from 'antd';
 import React from 'react';
 interface Props {
   onSubmit?: (message: string) => void;
+  placeHolderText: string;
 }
 function CreateMessage(props: Props) {
-  const { onSubmit } = props;
+  const { onSubmit, placeHolderText } = props;
   const [form] = Form.useForm();
 
   const handleFinish = (value: { input: string }) => {
-    console.log(value);
     if (value.input) {
       onSubmit?.(value.input);
     }
@@ -22,7 +22,8 @@ function CreateMessage(props: Props) {
           <Input.TextArea
             autoSize={{ minRows: 1 }}
             size="large"
-            placeholder="message"
+            placeholder={placeHolderText}
+            onPressEnter={form.submit}
           />
         </Form.Item>
         <Button

@@ -1,21 +1,23 @@
-import React from 'react';
+import { COOKIES_KEY } from '@/common/constants/cookie';
+import { APP_ROUTES } from '@/common/constants/routes';
 import { loginSchema } from '@/common/form-schemas';
-import ButtonComponent from '../../../components/atoms/buttons';
 import FormItem from '@/components/atoms/form-items/FormItem';
 import { PasswordInput } from '@/components/atoms/inputs/PasswordInput';
 import TextInput from '@/components/atoms/inputs/TextInput';
 import useAuth from '@/hooks/useAuth';
+import { useHexabase, useHexabaseStore } from '@/hooks/useHexabase';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
-import { APP_ROUTES } from '@/common/constants/routes';
-import { COOKIES_KEY } from '@/common/constants/cookie';
+import ButtonComponent from '@/components/atoms/buttons';
 
 const FormLogin: React.FC = () => {
+  const { setClientHxb } = useHexabaseStore();
   const {
-    loginMutation: { mutate, isLoading },
+    loginMutation: { mutate },
   } = useAuth();
 
   const router = useRouter();
@@ -40,10 +42,20 @@ const FormLogin: React.FC = () => {
     toast.error(error?.data?.message || 'Sever error');
   };
 
-  const onSubmit = (values: any) => {
-    // return mutate(values, { onSuccess, onError });
-    Cookies.set(COOKIES_KEY.ACCESS_TOKEN, '1');
-    router.push(APP_ROUTES.HOME);
+  const onSubmit = async (values: any) => {
+    const client = await useHexabase(values?.email, values?.password);
+    if (client) {
+      setClientHxb(client);
+      Cookies.set(COOKIES_KEY.ACCESS_TOKEN, client.tokenHxb);
+      Cookies.set(COOKIES_KEY.USERNAME, client?.currentUser?.userName ?? '');
+      Cookies.set(COOKIES_KEY.EMAIL, client?.currentUser?.email ?? '');
+      Cookies.set(COOKIES_KEY.USER_ID, client?.currentUser?.id ?? '');
+      Cookies.set(
+        COOKIES_KEY.PROFILE_PICTURE,
+        client?.currentUser?.profilePicture ?? ''
+      );
+      router.push(APP_ROUTES.HOME);
+    }
   };
 
   return (
@@ -60,7 +72,7 @@ const FormLogin: React.FC = () => {
             <ButtonComponent
               variant="out-line"
               text="ログイン"
-              disabled={isLoading}
+              // disabled={isLoading}
             />
           </div>
         </form>

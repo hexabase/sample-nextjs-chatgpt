@@ -1,3 +1,4 @@
+'use client'
 import { COOKIES_KEY } from "@/common/constants/cookie";
 import { APP_ROUTES } from "@/common/constants/routes";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";

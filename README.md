@@ -1,18 +1,25 @@
 # Hexabase ChatGPT
 
 ## Summary
+
 This is chatGPT application
 
+## Demo
+
+![alt text](https://github.com/hexabase/sample-nextjs-chatgpt/blob/develop/public/images/DemoGPTTalk.gif "Demo ChatGPT")
+
 ## Prerequisites
+
 Download and install or execute cmd to install
 
-| name |version     | URL or cmd                      | note
-|:-----|:---------------|---------------------------------|--
-| node |v16.x or later  | https://nodejs.org/en/download/ |
-| npm  |latest          | $ (sudo) npm install -g npm     |
-| yarn |latest          | $ (sudo) npm install -g yarn    |
+| name | version        | URL or cmd                      | note |
+| :--- | :------------- | ------------------------------- | ---- |
+| node | v16.x or later | https://nodejs.org/en/download/ |
+| npm  | latest         | $ (sudo) npm install -g npm     |
+| yarn | latest         | $ (sudo) npm install -g yarn    |
 
 ## User registration to Hexabase and creation your Workspace
+
 - access https://app.hexabase.com/login
 - Click `Don't have an account? Signup`
 - Select Signup with email address
@@ -20,46 +27,63 @@ Download and install or execute cmd to install
 - After password registration, user registration is completed and your workspace is created
 
 ## Download source locally from repository
+
 - `git clone` or download the zip file and extract it locally
 
 ## Restore application to workspace created using hexabase-cli
+
 - Access https://github.com/hexabase/hexabase-cli/tree/master
 - Execute the following command
+
 ```shell
 npm install -g hexabase-cli
 ```
+
 ```shell
 cd /path/to/project
 ```
+
 ```shell
 hx contexts:set prod --server https://api.hexabase.com --sse https://sse.hexabase.com
 ```
+
 ```shell
 hx contexts:use prod
 ```
+
 ```shell
 hx contexts:login
 ```
+
 - select your workspace
+
 ```shell
 hx workspaces:use
 ```
+
 ```shell
 hx projects:restore chatgpt_template.zip
 ```
+
 - if there are no problems, the template application will be restored to your workspace
 
 ## Create .env according to the created environment
+
 ```shell
 cp .env.sample .env.local
 ```
+
 ### Example
+
 - `NEXT_PUBLIC_PORT=3000` # Set server port
 - `NEXT_PUBLIC_API_URL=https://api.hexabase.com/api/v0` # Set api domain
-- `NEXT_PUBLIC_WORKSPACE_ID=xxxxxxxxxxxxxxxxxxxxxxxx` # Set workspace ID
+- `NEXT_PUBLIC_CHAT_GPT_API_URL=xxxxxxxxxxxxxxxxxxx` # Set ChatGPT API URL
 - `NEXT_PUBLIC_GPT_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxx` # Set chat GPT key ID
+- `NEXT_PUBLIC_GPT_MODEL=xxxxxxxxxxxxxxxxxxxxxxxxxx` # Set model GPT (GPT3.5, GPT4, ... etc)
+- `NEXT_PUBLIC_WORKSPACE_ID=xxxxxxxxxxxxxxxxxxxxxxx` # Set workspace ID
 
 See [docs](https://apidoc.hexabase.com/en/docs/v0/applications/GetApplicationsAndDatastores) to get project/database ID
+
 - `NEXT_PUBLIC_PROJECT_ID=xxxxxxxxxxxxxxxxxxxxxxxx` # Set project ID
 
 ## Getting Started
@@ -86,7 +110,6 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-
 ### Directory Structure
 
 ```
@@ -104,18 +127,14 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 │   │   ├── style.module.scss
 ├── hooks - where to declare global states that are used by locations
 │   ├── ${hookName}.tsx
-├── pages - where to declare routes of project
-│   ├── _app.tsx - where to declare root content of pages
-│   ├── _document.tsx
-│   ├── index.tsx - means `/` location
-│   ├── ${routeName}.tsx - means `${routeName}` location
+├── app - where to declare routes of project
+│   ├── [lng] - where to declare router languages
+│   │   ├── layout.tsx - A layout is UI that is shared between multiple pages.
+│   │   ├── page.tsx - means `/` location
+│   │   ├── [folderName]
+│   │   │   ├── page.tsx - means `${routeName}` location
 ├── public - where to declare which are public for clients
 │   ├── images
-│   ├── locales - where to declare multiple language for project
-│   │   ├── en
-│   │   │   ├── common.json
-│   │   ├── ja
-│   │   │   ├── common.json
 ├── services - where to declare which Apis used in project
 │   ├── api.ts - where to declare initial api
 │   ├── ${apiService}.ts - where to declare api service
@@ -131,7 +150,6 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ├── Dockerfile
 ├── next.config.js
 ├── next-env.d.ts
-├── next-i18next.config.js
 ├── package.json
 ├── postcss.config.js
 ├── README.md
